@@ -1,6 +1,6 @@
 # MS4
 
-> My cat&#39;s meow Nuxt.js project
+> My Project Selling
 
 ## Build Setup
 
