@@ -7,7 +7,7 @@
             <v-flex xs4>
               <v-container>
                 <v-card width="400">
-                  <v-list-item class="blue lighten-4" >ประเภทสินค้า</v-list-item>
+                  <v-list-item class="blue lighten-4">ประเภทสินค้า</v-list-item>
                   <v-list-item v-for="c in categories" :key="c.id" @click="categorySelect(c.id)">
                     <v-list-item-title>{{ c.name }}</v-list-item-title>
                   </v-list-item>
@@ -16,22 +16,19 @@
             </v-flex>
 
             <v-flex xs8>
-         
-                <b-row class="text-center">
-                  <b-col></b-col>
-                  <b-col cols="5">
-                    <v-text-field
-                      solo
-                      v-model.lazy ="search"
-                      placeholder="พิมพ์ชื่อสินค้าเพื่อค้นหา ..."
-                       append-icon="mdi-magnify "
-                      @input="handleClicked"
-                     
-                    ></v-text-field>
-                  </b-col>
-                  <b-col cols="1"></b-col>
-                </b-row>
-            
+              <b-row class="text-center">
+                <b-col></b-col>
+                <b-col cols="5">
+                  <v-text-field
+                    solo
+                    v-model.lazy="search"
+                    placeholder="พิมพ์ชื่อสินค้าเพื่อค้นหา ..."
+                    append-icon="mdi-magnify "
+                    @input="handleClicked"
+                  ></v-text-field>
+                </b-col>
+                <b-col cols="1"></b-col>
+              </b-row>
 
               <v-container class="d-flex flex-wrap">
                 <v-card
@@ -83,7 +80,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      search:"",
+      search: "",
       categoryid: null,
       products: [],
       categories: []
@@ -118,13 +115,13 @@ export default {
     async countproduct(_idd) {
       console("count", _idd);
     },
-     async handleClicked(){
-      console.log("FROM ENTER",this.search)
-       let res = await this.$http.get("/product/search", {
+    async handleClicked() {
+      console.log("FROM ENTER", this.search);
+      let res = await this.$http.get("/product/search", {
         params: { productname: this.search }
       });
       console.log(res.data);
-       this.products = res.data.products;
+      this.products = res.data.products;
     }
   }
 };
@@ -141,9 +138,8 @@ img {
 
   width: 150px;
 }
-.text-center{
-  padding-right:25px ;
+.text-center {
+  padding-right: 25px;
   padding-top: 5px;
-
 }
 </style>
