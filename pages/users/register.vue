@@ -200,7 +200,7 @@ export default {
           v
         ) || "อีเมล์ของท่านไม่ถูกต้อง"
     ],
-    genders: ["Male", "Female", "Others"],
+    genders: ["ชาย", "หญิง", "ไม่ต้องการระบุ"],
     PasswordRules: {
       required: value => !!value || "กรุณากรอกข้อมูลให้กรบถ้วน",
       min: v => v.length >= 8 || "กำหนดรหัสผ่านอย่างน้อย 8 ตัวอักษร"

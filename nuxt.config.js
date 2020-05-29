@@ -34,7 +34,7 @@ export default {
     "~/plugins/axios" //-- add plugins axios
   ],
   proxy: {
-    "/api": "http://127.0.0.1:7000", //-- ตั้งค่า map proxy url api server
+    "/api": "http://127.0.0.1:7000", //-- ตั้งค่า map proxy url api server //http://9e5d3e89.ngrok.io/ //"http://127.0.0.1:7000"
     ws: true
   },
   /*
@@ -58,13 +58,13 @@ export default {
       local: {
         endpoints: {
           login: {
-            url: "http://localhost:7000/api/users/login",
+            url: "http://127.0.0.1:7000/api/users/login",
             method: "post",
             propertyName: "token"
           },
           logout: { url: "/sessions", method: "delete" },
           user: {
-            url: "http://localhost:7000/api/users/me",
+            url: "http://127.0.0.1:7000/api/users/me",
             method: "get",
             propertyName: "userData"
           }

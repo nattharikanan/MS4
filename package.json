@@ -22,7 +22,8 @@
     "vue-axios": "^2.1.5",
     "vue-base64-file-upload": "^1.0.4",
     "vue-phone-number-input": "^1.1.9",
-    "vue-tel-input": "^4.4.0"
+    "vue-tel-input": "^4.4.0",
+    "vuex": "^3.4.0"
   },
   "devDependencies": {
     "@mdi/font": "^5.1.45",

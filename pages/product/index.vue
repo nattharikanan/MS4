@@ -1,5 +1,6 @@
 <template>
   <div>
+  
     <v-app class="app">
       <v-content>
         <v-container fluid ma-0 pa-0 fill-height>
@@ -47,7 +48,16 @@
                         :src="p.productimage"
                         :style="{marginTop : '10px',height:'150px',width:'200px'}"
                       />
-                      <v-list-item-title>{{p.productname}}</v-list-item-title>
+                      <nuxt-link
+                        :to="{
+        name: 'product_detail-id',
+        params: {
+          id:p.productid,
+        }
+      }"
+                      >
+                        <v-list-item-title>{{p.productname}}</v-list-item-title>
+                      </nuxt-link>
 
                       <v-list-item-subtitle>
                         หมายเหตุ : {{p.notation}}
@@ -60,9 +70,9 @@
                     <!-- <v-list-item-avatar tile size="80" color="grey"></v-list-item-avatar> -->
                     <!-- <img :src="p.productimage" /> -->
                   </v-list-item>
-                  <v-card-actions :style="{marginLeft:'12px',}">
-                    <v-btn color="success" dark>ใส่ตะกร้า</v-btn>
 
+                  <v-card-actions :style="{marginLeft:'12px',}">
+                    <v-btn color="success" dark @click="addToCart(p.productid)">ใส่ตะกร้า</v-btn>
                     <v-btn color="warning" dark>ขอใบเสนอราคา</v-btn>
                   </v-card-actions>
                 </v-card>
@@ -77,19 +87,25 @@
 
 <script>
 import axios from "axios";
+
 export default {
+    name: 'product',
+  props: ['product'],
   data() {
     return {
       search: "",
       categoryid: null,
       products: [],
-      categories: []
+      categories: [],
+      selected:null
     };
   },
 
   async created() {
     console.log("created function -->");
     //ปกป้องเสริมส่วนนี้มาให้
+    console.log("created function -->", this.pd);
+
     let res = await this.$http.get("/categories");
     console.log("respond", res.data);
     let temp = res.data.categories;
@@ -98,6 +114,15 @@ export default {
       id: c.categoryid
     }));
     this.getProduct();
+  },
+  // computed:{
+  //   product(){
+  //   return this.$store.state.product
+  //   console.log("test",this.$store.state.product)
+  //   }
+  // },
+  mounted() {
+    // this.$store.dispatch("getProduct");
   },
 
   methods: {
@@ -122,6 +147,19 @@ export default {
       });
       console.log(res.data);
       this.products = res.data.products;
+    },
+    async addToCart(id){
+       let res = await this.$http.get("/product", {
+        params: { productid:id }
+      });
+       console.log(res.data);
+       this.selected = res.data.products
+      //  console.log(this.selected);
+      // this.selected = res.data.selected;
+      this.$store.dispatch('addProductToCart',{
+        product : this.selected,
+        quantity: 1
+      })
     }
   }
 };
