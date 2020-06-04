@@ -72,6 +72,8 @@
                   </v-list-item>
 
                   <v-card-actions :style="{marginLeft:'12px',}">
+                    
+                   
                     <v-btn color="success" dark @click="addToCart(p.productid)">ใส่ตะกร้า</v-btn>
                     <v-btn color="warning" dark>ขอใบเสนอราคา</v-btn>
                   </v-card-actions>
@@ -149,6 +151,11 @@ export default {
       this.products = res.data.products;
     },
     async addToCart(id){
+      if($nuxt.$auth.loggedIn ==false){
+        this.$router.push('/users/login');
+      }
+      else{
+      
        let res = await this.$http.get("/product", {
         params: { productid:id }
       });
@@ -157,10 +164,12 @@ export default {
       //  console.log(this.selected);
       // this.selected = res.data.selected;
       this.$store.dispatch('addProductToCart',{
-        product : this.selected,
+        id : id,
         quantity: 1
       })
+      }
     }
+   
   }
 };
 </script>

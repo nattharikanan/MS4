@@ -31,7 +31,9 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    "~/plugins/axios" //-- add plugins axios
+    "~/plugins/axios",//-- add plugins axios
+    { src: '~/plugins/localStorage.js', ssr: false }
+  
   ],
   proxy: {
     "/api": "http://127.0.0.1:7000", //-- ตั้งค่า map proxy url api server //http://9e5d3e89.ngrok.io/ //"http://127.0.0.1:7000"
@@ -52,7 +54,7 @@ export default {
   ],
   auth: {
     redirect: {
-      login: "/login"
+      login: "/login",
     },
     strategies: {
       local: {

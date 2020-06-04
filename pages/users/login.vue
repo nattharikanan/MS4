@@ -50,7 +50,7 @@
               </v-card-text>
               <v-card-actions class="action">
               
-                <v-btn color="cyan" rounded width="300px" :style="{color:'white'}" @click="LoginSubmit">เข้าสู่ระบบ</v-btn>
+               <v-btn color="cyan" rounded width="300px" :style="{color:'white'}" @click="LoginSubmit">เข้าสู่ระบบ</v-btn>
               </v-card-actions>
               <v-divider class="mx-10"></v-divider>
               <v-card-text class ="gotosignup">

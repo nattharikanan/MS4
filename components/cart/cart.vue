@@ -8,13 +8,26 @@
         </v-btn>
       </template>
       <!-- v-for="(comment, idx) in comments" :key="idx" -->
-      <v-list class="cart">
+      <v-list class="cartlist">
+        <!-- <div v-for="(item, idx) in cart" :key="idx">
+          <div class="px-2 d-flex justify-content-between">
+            <div>
+              <strong>{{ item.product}}</strong>
+              <br />
+              {{ item.quantity }} x {{ item.product[0].unitprice }}
+            </div>
+            <div>
+              <a href="#" class="badge badge-secondary">ลบ</a>
+            </div>
+          </div>
+        </div>-->
+
         <div v-for="(item, idx) in cart" :key="idx">
           <div class="px-2 d-flex justify-content-between">
             <div>
-              <strong>{{ item.product[0].productname}}</strong>
+              <strong>{{ item.name }}</strong>
               <br />
-              {{ item.quantity }} x {{ item.product[0].unitprice }}
+              {{ item.quantity }} * {{ item.price }}
             </div>
             <div>
               <a href="#" class="badge badge-secondary">ลบ</a>
@@ -24,7 +37,8 @@
         <hr />
 
         <div class="px-2 d-flex justify-content-between">
-          <span>ยอดรวม : {{ cartTotalPrice }}</span>
+          <span>ยอดรวม : {{cartTotalPrice}}</span>
+
           <a href="#">ลบสินค้าทั้งหมด</a>
         </div>
       </v-list>
@@ -37,34 +51,41 @@
         </v-badge>
       </v-btn>
     -->
-
-    <v-btn icon color="white">
-      <!-- ปุ่มใบเสนอราคา -->
+    <!-- ปุ่มใบเสนอราคา -->
+    <!-- <v-btn icon color="white">
+      
       <v-icon size="25px">mdi-clipboard-text-outline</v-icon>
-    </v-btn>
+    </v-btn>-->
   </div>
 </template>
 
 <script>
 export default {
   data() {
-    return {};
+    return {
+      productsInCart: []
+    };
   },
-    watch: {
+  watch: {
     //ฟังก์ชันไว้คอยดูตัวแปร
     cart: {
       handler() {
-        console.log("cart data", this.$store.state.cart);
-      
+        console.log("cart data", this.$store.state.cart.product);
       }
     }
-    },
-
- 
+  },
   computed: {
     cart() {
-      return this.$store.state.cart;
-      
+      const temp = this.$store.state.cart;
+      const productsInCart = temp.map(item => {
+        const totalPrice = item.quantity * item.product.unitprice;
+        return {
+          name: item.product.productname,
+          quantity: item.quantity,
+          price: item.product.unitprice
+        };
+      });
+      return productsInCart;
     },
     cartItemCount() {
       return this.$store.getters.cartItemCount;
@@ -73,16 +94,15 @@ export default {
       return this.$store.getters.cartTotalPrice;
     }
   },
-   mounted() {
+  mounted() {
     //  this.$store.dispatch("getCartItems");
   },
-
-
+  methods: {}
 };
 </script>
 
 <style>
-.cart {
+.cartlist {
   width: 320px;
 }
 </style>

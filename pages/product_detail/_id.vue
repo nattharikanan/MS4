@@ -50,6 +50,22 @@ export default {
   },
   methods:{
       async addToCart(id){
+      //  let res = await this.$http.get("/product", {
+      //   params: { productid:id }
+      // });
+      //  console.log(res.data);
+      //  this.selected = res.data.products
+      // //  console.log(this.selected);
+      // // this.selected = res.data.selected;
+      // this.$store.dispatch('addProductToCart',{
+      //   product : this.selected,
+      //   quantity:1
+      // })
+            if($nuxt.$auth.loggedIn ==false){
+        this.$router.push('/users/login');
+      }
+      else{
+      
        let res = await this.$http.get("/product", {
         params: { productid:id }
       });
@@ -58,9 +74,10 @@ export default {
       //  console.log(this.selected);
       // this.selected = res.data.selected;
       this.$store.dispatch('addProductToCart',{
-        product : this.selected,
-        quantity:1
+        id : id,
+        quantity: 1
       })
+      }
     }
   }
 };
